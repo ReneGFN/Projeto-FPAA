@@ -1,8 +1,11 @@
+// Classe responsável por exibir o menu e as telas do programa no console.
+// Ela apenas lida com a parte visual e de interação com o usuário (interface textual).
 internal class Menu
 {
+    // Exibe o cabeçalho principal do programa, com título e explicação do problema.
     public void Cabecalho()
     {
-        Console.Clear();
+        Console.Clear(); // Limpa a tela antes de mostrar o cabeçalho
         Console.WriteLine("PUC - Problema da Interligação de Unidades");
         Console.WriteLine("===================================================================");
         Console.WriteLine("Descrição do problema:");
@@ -14,6 +17,7 @@ internal class Menu
         Console.WriteLine("===================================================================");
     }
 
+    // Exibe o corpo do menu principal com as opções disponíveis ao usuário.
     public void Corpo()
     {
         Console.WriteLine();
@@ -28,13 +32,15 @@ internal class Menu
         Console.WriteLine();
     }
 
+    // Exibe o resultado de uma operação (por exemplo, o resultado do algoritmo de Kruskal)
+    // e aguarda o usuário pressionar uma tecla para retornar ao menu.
     public void Resultado(string mensagem)
     {
-        Console.Clear();
+        Console.Clear(); // Limpa a tela antes de exibir o resultado
         Console.WriteLine("RESULTADO");
         Console.WriteLine("===================================================================");
-        Console.WriteLine(mensagem);
+        Console.WriteLine(mensagem); // Mostra a mensagem recebida como parâmetro
         Console.WriteLine("\nPressione qualquer tecla para voltar ao menu...");
-        Console.ReadKey();
+        Console.ReadKey(); // Espera o usuário pressionar uma tecla
     }
 }
