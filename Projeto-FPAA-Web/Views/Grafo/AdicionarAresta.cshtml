@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Adicionar Conexão";
+    var quantVertices = ViewBag.QuantVertices as int? ?? 0;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Adicionar Nova Conexão (Aresta)</h4>
+            </div>
+            <div class="card-body">
+                @if (TempData["Erro"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @TempData["Erro"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                <form asp-action="AdicionarAresta" method="post">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="origem" class="form-label">Unidade de Origem:</label>
+                            <input type="number" class="form-control" id="origem" name="origem" min="1" max="@quantVertices" required />
+                            <div class="form-text">Valores de 1 a @quantVertices</div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="destino" class="form-label">Unidade de Destino:</label>
+                            <input type="number" class="form-control" id="destino" name="destino" min="1" max="@quantVertices" required />
+                            <div class="form-text">Valores de 1 a @quantVertices</div>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="peso" class="form-label">Custo da Conexão:</label>
+                            <input type="number" class="form-control" id="peso" name="peso" min="1" required />
+                            <div class="form-text">Custo em unidades</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Adicionar Conexão</button>
+                        <a asp-action="Index" class="btn btn-secondary">Voltar ao Início</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6>Informações:</h6>
+                <ul>
+                    <li>O grafo possui <strong>@quantVertices unidades</strong></li>
+                    <li>Origem e destino devem ser diferentes</li>
+                    <li>O grafo é não-direcionado (conexão bidirecional automática)</li>
+                    <li>Você pode adicionar quantas conexões desejar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

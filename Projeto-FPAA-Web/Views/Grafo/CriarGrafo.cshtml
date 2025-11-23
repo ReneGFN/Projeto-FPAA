@@ -1,0 +1,47 @@
+@{
+    ViewData["Title"] = "Criar Grafo";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Criar Novo Grafo</h4>
+            </div>
+            <div class="card-body">
+                @if (TempData["Erro"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @TempData["Erro"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                <form asp-action="CriarGrafo" method="post">
+                    <div class="mb-3">
+                        <label for="quantVertices" class="form-label">Número de Unidades (Vértices):</label>
+                        <input type="number" class="form-control" id="quantVertices" name="quantVertices" min="1" required />
+                        <div class="form-text">Digite quantos vértices (unidades) o grafo terá.</div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Criar Grafo</button>
+                        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <h6>Instruções:</h6>
+                <ol>
+                    <li>Digite o número de unidades que você deseja conectar</li>
+                    <li>Após criar o grafo, você poderá adicionar conexões entre as unidades</li>
+                    <li>Cada conexão terá um custo associado</li>
+                    <li>O algoritmo de Kruskal encontrará a forma mais econômica de conectar todas as unidades</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

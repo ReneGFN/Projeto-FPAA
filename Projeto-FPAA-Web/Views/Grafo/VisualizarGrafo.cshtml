@@ -1,0 +1,55 @@
+@model Dictionary<int, List<string>>
+@{
+    ViewData["Title"] = "Visualizar Grafo";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Representação do Grafo (Lista de Adjacência)</h4>
+    </div>
+    <div class="card-body">
+        @if (Model.All(kvp => kvp.Value.Count == 0))
+        {
+            <div class="alert alert-warning" role="alert">
+                Nenhuma conexão cadastrada ainda. O grafo está vazio.
+            </div>
+            <a asp-action="AdicionarAresta" class="btn btn-primary">Adicionar Conexões</a>
+        }
+        else
+        {
+            <p class="text-muted">Cada unidade e suas conexões diretas:</p>
+            
+            <div class="list-group">
+                @foreach (var kvp in Model.OrderBy(x => x.Key))
+                {
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1 text-primary">Unidade @(kvp.Key + 1)</h5>
+                            <small class="text-muted">@kvp.Value.Count conexão(ões)</small>
+                        </div>
+                        @if (kvp.Value.Count > 0)
+                        {
+                            <p class="mb-1">
+                                <strong>Conectada a:</strong> @string.Join(", ", kvp.Value)
+                            </p>
+                        }
+                        else
+                        {
+                            <p class="mb-1 text-muted">
+                                <em>Sem conexões</em>
+                            </p>
+                        }
+                    </div>
+                }
+            </div>
+
+            <div class="mt-3">
+                <a asp-action="ExecutarKruskal" class="btn btn-success">Executar Kruskal</a>
+            </div>
+        }
+
+        <div class="mt-3">
+            <a asp-action="Index" class="btn btn-secondary">Voltar ao Início</a>
+        </div>
+    </div>
+</div>

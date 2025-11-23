@@ -1,0 +1,137 @@
+@model Projeto_FPAA_Web.Models.Grafo
+@{
+    ViewData["Title"] = "Início";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-4">PUC - Problema da Interligação de Unidades</h1>
+    <p class="lead">Sistema para encontrar a Árvore Geradora Mínima usando o Algoritmo de Kruskal</p>
+</div>
+
+@if (TempData["Sucesso"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Sucesso"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Erro"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Erro"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Descrição do Problema</h5>
+    </div>
+    <div class="card-body">
+        <p>A PUC possui várias unidades que precisam ser interligadas por rede de forma eficiente e com baixo custo.</p>
+        <p>O problema foi modelado como um grafo, onde:</p>
+        <ul>
+            <li><strong>Cada unidade</strong> representa um vértice</li>
+            <li><strong>As conexões possíveis</strong> entre elas são arestas com custos associados</li>
+        </ul>
+        <p class="mb-0"><strong>Objetivo:</strong> Encontrar a Árvore Geradora Mínima (AGM) usando o algoritmo de Kruskal, que conecta todas as unidades com o menor custo total possível.</p>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    <div class="card mt-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Status do Grafo Atual</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="text-primary">@Model.QuantVertices</h3>
+                            <p class="mb-0">Unidades (Vértices)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h3 class="text-success">@Model.ListaArestas.Count</h3>
+                            <p class="mb-0">Conexões (Arestas)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <a asp-action="LimparGrafo" class="btn btn-danger" onclick="return confirm('Deseja realmente limpar o grafo?')">
+                                Limpar Grafo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header bg-info text-white">
+            <h5 class="mb-0">Ações Disponíveis</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="d-grid">
+                        <a asp-action="AdicionarAresta" class="btn btn-primary btn-lg">
+                            <i class="bi bi-plus-circle"></i> Adicionar Conexão
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="d-grid">
+                        <a asp-action="ListarArestas" class="btn btn-secondary btn-lg">
+                            <i class="bi bi-list"></i> Ver Conexões
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="d-grid">
+                        <a asp-action="VisualizarGrafoGrafico" class="btn btn-warning btn-lg">
+                            <i class="bi bi-diagram-3"></i> Visualização Gráfica
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="d-grid">
+                        <a asp-action="ExecutarKruskal" class="btn btn-success btn-lg">
+                            <i class="bi bi-play-circle"></i> Executar Kruskal
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12 mb-3">
+                    <div class="d-grid">
+                        <a asp-action="VisualizarGrafo" class="btn btn-outline-info">
+                            Ver Lista de Adjacência
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card mt-4">
+        <div class="card-header bg-warning">
+            <h5 class="mb-0">Nenhum Grafo Criado</h5>
+        </div>
+        <div class="card-body text-center">
+            <p>Você ainda não criou um grafo. Comece criando um grafo com o número de unidades desejado.</p>
+            <a asp-action="CriarGrafo" class="btn btn-primary btn-lg">Criar Grafo</a>
+        </div>
+    </div>
+}
